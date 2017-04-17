@@ -12,6 +12,14 @@ public class transitionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_transition);
     }
+    public void transitionCreate(View view){
+        Intent intent = new Intent(this,passwordCreateActivity.class);
+        startActivity(intent);
+    }
+    public void transitionRecover(View view) {
+        Intent intent = new Intent(this,passwordRecoverActivity.class);
+        startActivity(intent);
+    }
     public void logout(View view){
         Intent intent = new Intent(this,LoginActivity.class);
         startActivity(intent);

@@ -11,30 +11,40 @@
     tools:context="com.example.deric.passwordlockbox.transitionActivity">
 
     <Button
-        android:text="Create"
+        android:text="Create Password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/createButton"
-        android:layout_alignParentTop="true"
+        android:onClick="transitionCreate"
+        android:layout_below="@+id/accountButton"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="48dp" />
+        android:layout_marginTop="90dp"
+        android:maxWidth="150dp" />
 
     <Button
-        android:text="Recover"
+        android:text="Account"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/recoverButton"
-        android:layout_marginTop="63dp"
-        android:layout_below="@+id/createButton"
-        android:layout_alignStart="@+id/createButton" />
+        android:id="@+id/accountButton"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true" />
 
     <Button
         android:text="Log Out"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/recoverButton"
-        android:layout_alignStart="@+id/recoverButton"
-        android:layout_marginTop="113dp"
         android:onClick="logout"
-        android:id="@+id/logoutButton" />
+        android:id="@+id/logoutButton"
+        android:layout_below="@+id/accountButton"
+        android:layout_alignParentEnd="true" />
+
+    <Button
+        android:text="Recover Password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/recoverButton"
+        android:onClick="transitionRecover"
+        android:maxWidth="150dp"
+        android:layout_centerVertical="true"
+        android:layout_alignStart="@+id/createButton" />
 </RelativeLayout>
