@@ -17,6 +17,7 @@
         android:id="@+id/createButton"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
+        android:onClick="transitionCreate"
         android:layout_marginTop="48dp" />
 
     <Button
@@ -26,6 +27,7 @@
         android:id="@+id/recoverButton"
         android:layout_marginTop="63dp"
         android:layout_below="@+id/createButton"
+        android:onClick="transitionRecover"
         android:layout_alignStart="@+id/createButton" />
 
     <Button
