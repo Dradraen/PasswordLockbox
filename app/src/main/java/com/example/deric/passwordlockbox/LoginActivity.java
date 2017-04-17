@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 
 public class LoginActivity extends AppCompatActivity {
@@ -16,6 +17,7 @@ public class LoginActivity extends AppCompatActivity {
     Button regButton;
     EditText usernameField;
     EditText passwordField;
+    TextView displayText;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,6 +27,7 @@ public class LoginActivity extends AppCompatActivity {
         passwordField = (EditText) findViewById(R.id.PasswordField);
         loginButton = (Button)findViewById(R.id.loginButton);
         regButton = (Button)findViewById(R.id.regButton);
+        displayText = (TextView)findViewById(R.id.DisplayText);
         if(settings.getString("registered",null)==null) {
 
             regButton.performClick();
@@ -34,28 +37,43 @@ public class LoginActivity extends AppCompatActivity {
     public void regRequest(View view)
     {
         Intent intent = new Intent(LoginActivity.this,registerActivity.class);
-        intent.putExtra("Prefs",LOGIN_SETTINGS);
+        intent.putExtra("login",LOGIN_SETTINGS);
         startActivityForResult(intent,100);
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // Check which request we're responding to
         if (requestCode == 100) {
-            // Make sure the request was successful
-            if (resultCode == RESULT_OK) {
-
+            System.out.println(resultCode);
+            if (resultCode == 0){
+                settings.edit().putString(data.getStringExtra("USER"),data.getStringExtra("PASS")).commit();
+                settings.edit().putString("registered","true").commit();
             }
         }
     }
     public void loginRequest(View view)
     {
-        if(settings.getString(usernameField.getText().toString(),null)==null){
 
+        if(usernameField.getText().toString().equals("")|| passwordField.getText().toString().equals(""))
+        {
+            displayText.setText("Please fill in both fields");
+        }
+        else{
+            if(settings.getString(usernameField.getText().toString(),null)==null)
+            {
+                displayText.setText("That account does not exist");
+            }
+            else{
+                if(passwordField.getText().toString().equals(settings.getString(usernameField.getText().toString(),""))){
+                    Intent intent = new Intent(LoginActivity.this,transitionActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+                else{
+                    displayText.setText("Incorrect Username or Password");
+                }
+            }
+        }
 
-        }
-        else if(settings.getString(usernameField.getText().toString(),null).equals(passwordField.getText().toString())){
-            Intent intent = new Intent(LoginActivity.this,transitionActivity.class);
-            startActivity(intent);
-        }
     }
 }
