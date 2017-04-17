@@ -18,7 +18,8 @@
         <activity android:name=".transitionActivity" />
         <activity android:name=".passwordCreateActivity" />
         <activity android:name=".passwordRecoverActivity" />
-        <activity android:name=".registerActivity"></activity>
+        <activity android:name=".registerActivity" />
+        <activity android:name=".AccountActivity"></activity>
     </application>
 
 </manifest>

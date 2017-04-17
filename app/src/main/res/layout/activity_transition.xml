@@ -47,4 +47,14 @@
         android:maxWidth="150dp"
         android:layout_centerVertical="true"
         android:layout_alignStart="@+id/createButton" />
+
+    <Button
+        android:text="Change Password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/recoverButton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:id="@+id/changePassword"
+        android:maxWidth="150dp" />
 </RelativeLayout>
