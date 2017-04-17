@@ -6,11 +6,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.NumberPicker;
 
+import java.util.Random;
+
 public class passwordCreateActivity extends AppCompatActivity {
 
     SharedPreferences passwords;
     private static String PASSWORD_STORE = "passwordList";
     NumberPicker numChar;
+    String availableChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*~";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,12 +23,18 @@ public class passwordCreateActivity extends AppCompatActivity {
         numChar.setMinValue(7);
         numChar.setMaxValue(20);
         numChar.setValue(7);
-        
+
 
     }
 
     public void createPassword(View v){
         int characters = numChar.getValue();
+        Random rand = new Random();
+        StringBuilder pword= new StringBuilder();
+        for (int i = 0; i < characters; i++) {
+            int charIndex = (int)(rand.nextFloat() * availableChars.length());
+            pword.append(availableChars.charAt(charIndex));
+        }
 
     }
 
