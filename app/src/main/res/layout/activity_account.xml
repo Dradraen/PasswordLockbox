@@ -38,4 +38,24 @@
         android:layout_marginTop="16dp"
         android:id="@+id/resetPassButton"
         android:onClick="resetPassword" />
+
+    <TextView
+        android:text="Authors: Derick McCrary, Jordan Nazario, Matthew Wholly"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="125dp"
+        android:id="@+id/AuthorText"
+        android:textSize="12sp" />
+
+    <TextView
+        android:text="Copyright © 2017 by Derick McCrary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/AuthorText"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="26dp"
+        android:id="@+id/textView2"
+        android:textSize="14sp" />
 </RelativeLayout>

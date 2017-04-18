@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 
 public class transitionActivity extends AppCompatActivity {
-
+    String currentUser = getIntent().getStringExtra("currentUser");
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,5 +24,11 @@ public class transitionActivity extends AppCompatActivity {
         Intent intent = new Intent(this,LoginActivity.class);
         startActivity(intent);
         finish();
+    }
+    public void transitionSettings(View view){
+        Intent intent = new Intent(this,AccountActivity.class);
+        intent.putExtra("currentUser",getIntent().getStringExtra("currentUser"));
+        startActivity(intent);
+
     }
 }

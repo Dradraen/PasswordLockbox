@@ -66,6 +66,7 @@ public class LoginActivity extends AppCompatActivity {
             else{
                 if(passwordField.getText().toString().equals(settings.getString(usernameField.getText().toString(),""))){
                     Intent intent = new Intent(LoginActivity.this,transitionActivity.class);
+                    intent.putExtra("currentUser",usernameField.getText().toString());
                     startActivity(intent);
                     finish();
                 }
