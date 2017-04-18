@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Password LockBox</string>
+    <string name="title_activity_account">AccountActivity</string>
 </resources>
