@@ -18,7 +18,7 @@ public class registerActivity extends AppCompatActivity {
     EditText passwordEditText;
     TextView displayText;
     SharedPreferences settings;
-    Crypto c;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
