@@ -13,15 +13,17 @@ import java.util.Random;
 public class passwordCreateActivity extends AppCompatActivity {
 
     SharedPreferences passwords;
-    private static String PASSWORD_STORE = "passwordList";
+    private final String PASSWORD_STORE = "passwordList";
     NumberPicker numChar;
     EditText nPassword;
+    EditText domainText;
     String availableChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*~";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_password_create);
         passwords = getSharedPreferences(PASSWORD_STORE,0);
+        domainText = (EditText) findViewById(R.id.domainText);
         numChar = (NumberPicker) findViewById(R.id.numCharPicker);
         numChar.setMinValue(7);
         numChar.setMaxValue(20);
@@ -39,7 +41,9 @@ public class passwordCreateActivity extends AppCompatActivity {
             pword.append(availableChars.charAt(charIndex));
         }
         Log.d("beforeEncrypt",pword.toString());
+        String domain = domainText.getText().toString();
         nPassword.setText(pword.toString());
+        passwords.edit().putString(domain,pword.toString()).commit();
 
     }
 
