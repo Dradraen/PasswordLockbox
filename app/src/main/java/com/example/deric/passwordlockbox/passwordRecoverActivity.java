@@ -15,8 +15,12 @@ public class passwordRecoverActivity extends AppCompatActivity {
     EditText cDomain;
     EditText mPass;
     TextView fPassText;
+    String currentUser;
+    private final String LOGIN_SETTINGS = "login_credentials";
+    String masterPass;
     private final String PASSWORD_STORE = "passwordList";
     SharedPreferences passwords;
+    SharedPreferences settings;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,6 +29,9 @@ public class passwordRecoverActivity extends AppCompatActivity {
         mPass = (EditText) findViewById(R.id.mPass);
         fPassText = (TextView) findViewById(R.id.fPassText);
         passwords = getSharedPreferences(PASSWORD_STORE,0);
+        settings = getSharedPreferences(LOGIN_SETTINGS,0);
+        currentUser =  getIntent().getStringExtra("currentUser");
+        masterPass = settings.getString(currentUser,"");
 
     }
 
@@ -41,6 +48,17 @@ public class passwordRecoverActivity extends AppCompatActivity {
                             dialog.dismiss();
                         }
                     });
+            alertDialog.show();
+        }
+        else if (!master.equals(masterPass)){
+            AlertDialog alertDialog = new AlertDialog.Builder(passwordRecoverActivity.this).create();
+            alertDialog.setMessage("Master password incorrect");
+            alertDialog.setTitle("Alert");
+            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
             alertDialog.show();
         }
         else {
