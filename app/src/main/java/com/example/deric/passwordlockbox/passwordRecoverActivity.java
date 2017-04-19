@@ -1,7 +1,9 @@
 package com.example.deric.passwordlockbox;
 
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -30,9 +32,22 @@ public class passwordRecoverActivity extends AppCompatActivity {
         String master = mPass.getText().toString();
         String domain = cDomain.getText().toString();
         String pword = passwords.getString(domain,"");
-        fPassText.setText(pword);
-        Log.d("Retrieve", pword);
-        Log.d("Domain",domain);
+        if(domain.equals("") || master.equals("")){
+            AlertDialog alertDialog = new AlertDialog.Builder(passwordRecoverActivity.this).create();
+            alertDialog.setMessage("Please fill in both fields to retrieve your password");
+            alertDialog.setTitle("Alert");
+            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+            alertDialog.show();
+        }
+        else {
+            fPassText.setText(pword);
+            Log.d("Retrieve", pword);
+            Log.d("Domain", domain);
+        }
 
     }
 }
