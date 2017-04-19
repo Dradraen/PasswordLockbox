@@ -44,6 +44,7 @@ public class passwordRecoverActivity extends AppCompatActivity {
         String domain = cDomain.getText().toString();
         String pass = passwords.getString(domain,"");
         String key = passwords.getString(domain + "k", "");
+        //decrypts password
         String pword = c.decryption(pass, key);
         if(domain.equals("") || master.equals("")){
             AlertDialog alertDialog = new AlertDialog.Builder(passwordRecoverActivity.this).create();
@@ -56,7 +57,7 @@ public class passwordRecoverActivity extends AppCompatActivity {
                     });
             alertDialog.show();
         }
-        else if (!master.equals(masterPass)){
+        else if (c.validate(master, masterPass)){
             AlertDialog alertDialog = new AlertDialog.Builder(passwordRecoverActivity.this).create();
             alertDialog.setMessage("Master password incorrect");
             alertDialog.setTitle("Alert");
