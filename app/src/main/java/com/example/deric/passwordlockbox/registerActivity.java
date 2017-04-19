@@ -8,11 +8,18 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
+
+
 public class registerActivity extends AppCompatActivity {
     EditText usernameEditText;
     EditText passwordEditText;
     TextView displayText;
     SharedPreferences settings;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,6 +28,8 @@ public class registerActivity extends AppCompatActivity {
         passwordEditText = (EditText)findViewById(R.id.passwordEditText);
         displayText = (TextView)findViewById(R.id.DisplayText);
         settings = getSharedPreferences(getIntent().getStringExtra("login"),MODE_PRIVATE);
+
+
 
     }
     public void regRequest(View view)
@@ -37,6 +46,11 @@ public class registerActivity extends AppCompatActivity {
             else{
                 if(passwordEditText.getText().toString().length()>7){
                     Intent intent = new Intent();
+                    String username = usernameEditText.getText().toString();
+                    String password = passwordEditText.getText().toString();
+
+
+
                     intent.putExtra("USER",usernameEditText.getText().toString());
                     intent.putExtra("PASS",passwordEditText.getText().toString());
                     setResult(0,intent);
