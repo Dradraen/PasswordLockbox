@@ -57,7 +57,7 @@ public class passwordRecoverActivity extends AppCompatActivity {
                     });
             alertDialog.show();
         }
-        else if (c.validate(master, masterPass)){
+        else if (!c.validate(master, masterPass)){
             AlertDialog alertDialog = new AlertDialog.Builder(passwordRecoverActivity.this).create();
             alertDialog.setMessage("Master password incorrect");
             alertDialog.setTitle("Alert");
