@@ -6,11 +6,12 @@ import android.os.Bundle;
 import android.view.View;
 
 public class transitionActivity extends AppCompatActivity {
-    String currentUser = getIntent().getStringExtra("currentUser");
+    String currentUser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_transition);
+        currentUser  = getIntent().getStringExtra("currentUser");
     }
     public void transitionCreate(View view){
         Intent intent = new Intent(this,passwordCreateActivity.class);
@@ -18,6 +19,7 @@ public class transitionActivity extends AppCompatActivity {
     }
     public void transitionRecover(View view) {
         Intent intent = new Intent(this,passwordRecoverActivity.class);
+        intent.putExtra("currentUser",currentUser);
         startActivity(intent);
     }
     public void logout(View view){
@@ -27,7 +29,7 @@ public class transitionActivity extends AppCompatActivity {
     }
     public void transitionSettings(View view){
         Intent intent = new Intent(this,AccountActivity.class);
-        intent.putExtra("currentUser",getIntent().getStringExtra("currentUser"));
+        intent.putExtra("currentUser",currentUser);
         startActivity(intent);
 
     }
