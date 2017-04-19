@@ -17,6 +17,7 @@ public class passwordRecoverActivity extends AppCompatActivity {
     TextView fPassText;
     private final String PASSWORD_STORE = "passwordList";
     SharedPreferences passwords;
+    Crypto c;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,13 +26,15 @@ public class passwordRecoverActivity extends AppCompatActivity {
         mPass = (EditText) findViewById(R.id.mPass);
         fPassText = (TextView) findViewById(R.id.fPassText);
         passwords = getSharedPreferences(PASSWORD_STORE,0);
-
+        c = new Crypto();
     }
 
     public void retrievePassword(View v){
         String master = mPass.getText().toString();
         String domain = cDomain.getText().toString();
-        String pword = passwords.getString(domain,"");
+        String pass = passwords.getString(domain,"");
+        String key = passwords.getString(domain + "k", "");
+        String pword = c.decryption(pass, key);
         if(domain.equals("") || master.equals("")){
             AlertDialog alertDialog = new AlertDialog.Builder(passwordRecoverActivity.this).create();
             alertDialog.setMessage("Please fill in both fields to retrieve your password");

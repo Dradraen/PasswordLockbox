@@ -18,6 +18,7 @@ public class LoginActivity extends AppCompatActivity {
     EditText usernameField;
     EditText passwordField;
     TextView displayText;
+    Crypto c;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,6 +29,7 @@ public class LoginActivity extends AppCompatActivity {
         loginButton = (Button)findViewById(R.id.loginButton);
         regButton = (Button)findViewById(R.id.regButton);
         displayText = (TextView)findViewById(R.id.DisplayText);
+        c = new Crypto();
         if(settings.getString("registered",null)==null) {
 
             regButton.performClick();
@@ -64,7 +66,9 @@ public class LoginActivity extends AppCompatActivity {
                 displayText.setText("That account does not exist");
             }
             else{
-                if(passwordField.getText().toString().equals(settings.getString(usernameField.getText().toString(),""))){
+                String pass = passwordField.getText().toString();
+                String token = settings.getString(usernameField.getText().toString(), "");
+                if(c.validate(pass, token)){
                     Intent intent = new Intent(LoginActivity.this,transitionActivity.class);
                     intent.putExtra("currentUser",usernameField.getText().toString());
                     startActivity(intent);

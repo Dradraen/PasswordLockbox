@@ -18,7 +18,7 @@ public class registerActivity extends AppCompatActivity {
     EditText passwordEditText;
     TextView displayText;
     SharedPreferences settings;
-
+    Crypto c;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +28,7 @@ public class registerActivity extends AppCompatActivity {
         passwordEditText = (EditText)findViewById(R.id.passwordEditText);
         displayText = (TextView)findViewById(R.id.DisplayText);
         settings = getSharedPreferences(getIntent().getStringExtra("login"),MODE_PRIVATE);
-
+        c = new Crypto();
 
 
     }
@@ -49,10 +49,10 @@ public class registerActivity extends AppCompatActivity {
                     String username = usernameEditText.getText().toString();
                     String password = passwordEditText.getText().toString();
 
-
+                    String digest = c.makeDigest(password);
 
                     intent.putExtra("USER",usernameEditText.getText().toString());
-                    intent.putExtra("PASS",passwordEditText.getText().toString());
+                    intent.putExtra("PASS",digest);
                     setResult(0,intent);
                     finish();
                 }
