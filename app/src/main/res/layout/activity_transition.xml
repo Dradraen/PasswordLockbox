@@ -46,6 +46,8 @@
         android:id="@+id/recoverButton"
         android:onClick="transitionRecover"
         android:maxWidth="150dp"
+        android:layout_below="@+id/createButton"
+        android:layout_marginTop="30dp"
         android:layout_centerVertical="true"
         android:layout_alignStart="@+id/createButton" />
 
