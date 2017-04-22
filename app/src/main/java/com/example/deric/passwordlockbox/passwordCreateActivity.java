@@ -18,6 +18,7 @@ public class passwordCreateActivity extends AppCompatActivity {
     EditText nPassword;
     EditText domainText;
     String availableChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*~";
+    String currentUser;
     Crypto c;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +32,7 @@ public class passwordCreateActivity extends AppCompatActivity {
         numChar.setValue(7);
         nPassword = (EditText) findViewById(R.id.nPassword);
         c = new Crypto();
+        currentUser = getIntent().getStringExtra("currentUser");
     }
 
     public void createPassword(View v){
@@ -42,7 +44,7 @@ public class passwordCreateActivity extends AppCompatActivity {
             pword.append(availableChars.charAt(charIndex));
         }
         Log.d("beforeEncrypt",pword.toString());
-        String domain = domainText.getText().toString();
+        String domain = domainText.getText().toString()+currentUser;
         nPassword.setText(pword.toString());
         String key = c.getKey(pword.toString()).toString();
         String enc = c.encryption(pword.toString(), key);

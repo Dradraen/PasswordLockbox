@@ -15,6 +15,7 @@ public class transitionActivity extends AppCompatActivity {
     }
     public void transitionCreate(View view){
         Intent intent = new Intent(this,passwordCreateActivity.class);
+        intent.putExtra("currentUser",currentUser);
         startActivity(intent);
     }
     public void transitionRecover(View view) {

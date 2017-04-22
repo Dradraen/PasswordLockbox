@@ -41,7 +41,7 @@ public class passwordRecoverActivity extends AppCompatActivity {
 
     public void retrievePassword(View v){
         String master = mPass.getText().toString();
-        String domain = cDomain.getText().toString();
+        String domain = cDomain.getText().toString() + currentUser;
         String pass = passwords.getString(domain,"");
         String key = passwords.getString(domain + "k", "");
         //decrypts password
