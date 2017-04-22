@@ -17,7 +17,7 @@ public class passwordCreateActivity extends AppCompatActivity {
     NumberPicker numChar;
     EditText nPassword;
     EditText domainText;
-    String availableChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*~";
+    private final String availableChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*~";
     String currentUser;
     Crypto c;
     @Override

@@ -20,7 +20,7 @@ public class Crypto {
         String hexStr = "";
 
         try {
-            MessageDigest md = MessageDigest.getInstance("SHA1");
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
             md.reset();
             byte[] buffer = password.getBytes();
             md.update(buffer);

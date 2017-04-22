@@ -23,6 +23,11 @@ public class transitionActivity extends AppCompatActivity {
         intent.putExtra("currentUser",currentUser);
         startActivity(intent);
     }
+    public void transitionChangeDomain(View view){
+        Intent intent = new Intent(this,changeDomainPassword.class);
+        intent.putExtra("currentUser",currentUser);
+        startActivity(intent);
+    }
     public void logout(View view){
         Intent intent = new Intent(this,LoginActivity.class);
         startActivity(intent);
