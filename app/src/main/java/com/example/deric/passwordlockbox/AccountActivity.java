@@ -17,5 +17,6 @@ public class AccountActivity extends AppCompatActivity {
         Intent intent = new Intent(this,Changepassword.class);
         intent.putExtra("currentUser",getIntent().getStringExtra("currentUser"));
         startActivity(intent);
+        finish();
     }
 }

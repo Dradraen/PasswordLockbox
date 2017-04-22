@@ -41,7 +41,7 @@ public class registerActivity extends AppCompatActivity {
         else{
             if(settings.getString(usernameEditText.getText().toString(),null)!=null)
             {
-                displayText.setText("Please fill in both fields");
+                displayText.setText("That Account exists already");
             }
             else{
                 if(passwordEditText.getText().toString().length()>7){
