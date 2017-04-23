@@ -1,7 +1,9 @@
 package com.example.deric.passwordlockbox;
 
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -36,23 +38,48 @@ public class passwordCreateActivity extends AppCompatActivity {
     }
 
     public void createPassword(View v){
-        int characters = numChar.getValue();
-        Random rand = new Random();
-        StringBuilder pword= new StringBuilder();
-        for (int i = 0; i < characters; i++) {
-            int charIndex = rand.nextInt(126-33+1)+33;
-            Log.d("Char",charIndex+"");
+        String domain = domainText.getText().toString()+currentUser;
+        if(domain.equals("")){
+            AlertDialog alertDialog = new AlertDialog.Builder(passwordCreateActivity.this).create();
+            alertDialog.setMessage("Please fill in the domain field");
+            alertDialog.setTitle("Alert");
+            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+            alertDialog.show();
+        }
+        else if (!passwords.getString(domain,"").equals("")){
+            AlertDialog alertDialog = new AlertDialog.Builder(passwordCreateActivity.this).create();
+            alertDialog.setMessage("You already have a password for this domain");
+            alertDialog.setTitle("Alert");
+            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+            alertDialog.show();
+        }
+        else {
+            int characters = numChar.getValue();
+            Random rand = new Random();
+            StringBuilder pword = new StringBuilder();
+            for (int i = 0; i < characters; i++) {
+                int charIndex = rand.nextInt(126 - 33 + 1) + 33;
+                Log.d("Char", charIndex + "");
 
                 pword.append(Character.toString((char) charIndex));
 
+            }
+            Log.d("beforeEncrypt", pword.toString());
+
+            nPassword.setText(pword.toString());
+            String key = c.getKey(pword.toString()).toString();
+            String enc = c.encryption(pword.toString(), key);
+            passwords.edit().putString(domain, enc).commit();
+            passwords.edit().putString(domain + "k", key).commit();
         }
-        Log.d("beforeEncrypt",pword.toString());
-        String domain = domainText.getText().toString()+currentUser;
-        nPassword.setText(pword.toString());
-        String key = c.getKey(pword.toString()).toString();
-        String enc = c.encryption(pword.toString(), key);
-        passwords.edit().putString(domain,enc).commit();
-        passwords.edit().putString(domain + "k", key).commit();
     }
 
 
