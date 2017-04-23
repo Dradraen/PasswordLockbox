@@ -17,7 +17,7 @@ public class passwordCreateActivity extends AppCompatActivity {
     NumberPicker numChar;
     EditText nPassword;
     EditText domainText;
-    private final String availableChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*~";
+    //private final String availableChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*~";
     String currentUser;
     Crypto c;
     @Override
@@ -40,8 +40,11 @@ public class passwordCreateActivity extends AppCompatActivity {
         Random rand = new Random();
         StringBuilder pword= new StringBuilder();
         for (int i = 0; i < characters; i++) {
-            int charIndex = (int)(rand.nextFloat() * availableChars.length());
-            pword.append(availableChars.charAt(charIndex));
+            int charIndex = rand.nextInt(126-33+1)+33;
+            Log.d("Char",charIndex+"");
+
+                pword.append(Character.toString((char) charIndex));
+
         }
         Log.d("beforeEncrypt",pword.toString());
         String domain = domainText.getText().toString()+currentUser;
