@@ -57,6 +57,18 @@ public class passwordRecoverActivity extends AppCompatActivity {
                     });
             alertDialog.show();
         }
+        else if (pass.equals("")){
+            AlertDialog alertDialog = new AlertDialog.Builder(passwordRecoverActivity.this).create();
+            alertDialog.setMessage("You do not have a password for this domain");
+            alertDialog.setTitle("Alert");
+            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+            alertDialog.show();
+            fPassText.setText("Password will appear here");
+        }
         else if (!c.validate(master, masterPass)){
             AlertDialog alertDialog = new AlertDialog.Builder(passwordRecoverActivity.this).create();
             alertDialog.setMessage("Master password incorrect");
