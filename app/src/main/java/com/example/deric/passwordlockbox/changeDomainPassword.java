@@ -16,14 +16,14 @@ import java.util.Random;
 public class changeDomainPassword extends AppCompatActivity {
     private EditText masterPass;
     private EditText newPass;
-    private EditText newPassCon;
+    private final String LOGIN_SETTINGS = "login_credentials";
+    SharedPreferences settings;
     private String currentUser;
     private final String PASSWORD_STORE = "passwordList";
     private EditText domainName;
     NumberPicker numChar;
     Crypto c;
     SharedPreferences passwords;
-    private final String availableChars="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*~";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,7 +31,6 @@ public class changeDomainPassword extends AppCompatActivity {
         currentUser = getIntent().getStringExtra("currentUser");
         masterPass = (EditText)findViewById(R.id.masterPass);
         newPass = (EditText)findViewById(R.id.newPass);
-        newPassCon = (EditText)findViewById(R.id.newPassCon);
         domainName = (EditText)findViewById(R.id.domainName);
         numChar = (NumberPicker) findViewById(R.id.numChar);
         numChar.setMinValue(7);
@@ -39,6 +38,8 @@ public class changeDomainPassword extends AppCompatActivity {
         c = new Crypto();
         numChar.setValue(7);
         passwords= getSharedPreferences(PASSWORD_STORE,0);
+        settings = getSharedPreferences(LOGIN_SETTINGS,0);
+
 
     }
     public void returnFromPasswordChange(View view){
@@ -48,9 +49,36 @@ public class changeDomainPassword extends AppCompatActivity {
         finish();
     }
     public void confirmChange(View view){
+        String domain = domainName.getText().toString() + currentUser;
+        String masterText = masterPass.getText().toString();
+        String master = settings.getString(currentUser,"");
+
         if(domainName.getText().toString().equals("") || masterPass.getText().toString().equals("")) {
             AlertDialog alertDialog = new AlertDialog.Builder(changeDomainPassword.this).create();
             alertDialog.setMessage("Please fill in both fields to change your password");
+            alertDialog.setTitle("Alert");
+            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+            alertDialog.show();
+        }
+        else if(passwords.getString(domain,"").equals("")){
+            AlertDialog alertDialog = new AlertDialog.Builder(changeDomainPassword.this).create();
+            alertDialog.setMessage("You do not have a password for this domain yet");
+            alertDialog.setTitle("Alert");
+            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+            alertDialog.show();
+            newPass.setText("");
+        }
+        else if(!c.validate(masterText,master)){
+            AlertDialog alertDialog = new AlertDialog.Builder(changeDomainPassword.this).create();
+            alertDialog.setMessage("Incorrect master password");
             alertDialog.setTitle("Alert");
             alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
@@ -64,11 +92,12 @@ public class changeDomainPassword extends AppCompatActivity {
             Random rand = new Random();
             StringBuilder pword = new StringBuilder();
             for (int i = 0; i < characters; i++) {
-                int charIndex = (int) (rand.nextFloat() * availableChars.length());
-                pword.append(availableChars.charAt(charIndex));
+                int charIndex = rand.nextInt(126 - 33 + 1) + 33;
+                Log.d("Char", charIndex + "");
+
+                pword.append(Character.toString((char) charIndex));
             }
             Log.d("beforeEncrypt", pword.toString());
-            String domain = domainName.getText().toString() + currentUser;
             newPass.setText(pword.toString());
             String key = c.getKey(pword.toString()).toString();
             String enc = c.encryption(pword.toString(), key);
